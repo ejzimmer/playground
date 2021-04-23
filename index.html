@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout playground</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"> 
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      --dark-blue: hsl(202, 69%, 15%);
+      --light-blue: #15A9DD;
+      --light-orange: hsl(19, 87%, 62%);
+      --dark-orange: hsl(24, 100%, 38%);
+      --light-red: rgb(204, 6, 6);
+      --red: #7B0001;
+      --shadow: hsl(202, 69%, 15%, .4);
+      --green: hsl(125, 72%, 63%);
+      --main-colour: hsl(192, 100%, 11%);
+      --background-gradient: linear-gradient(135deg, hsl(0, 70%, 85%), hsl(39, 100%, 90%), hsl(60, 100%, 90%), hsl(120, 84%, 95%), hsl(240, 100%, 95%), hsl(281, 80%, 95%)  );
+      color: var(--main-colour);
+      background: linear-gradient(135deg, hsl(0, 70%, 85%), hsl(39, 100%, 90%), hsl(60, 100%, 90%), hsl(120, 84%, 95%), hsl(240, 100%, 95%), hsl(281, 80%, 95%)  );
+      background-color: white; 
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Permanent Marker', cursive;
+    }
+
+    section {
+      overflow: hidden;
+      resize: both;
+      width: 70vw;
+      height: 70vh;
+      margin: auto;
+      border: 4px solid currentColor;
+      counter-reset: element;
+    }
+
+    .element::before {
+      content: counter(element);
+    }
+
+    .element {
+        counter-increment: element;
+				--side: 150px;
+        font-size: 20px;
+				width: var(--side);
+				height: var(--side);
+				--gradient-start: hsl(259, 71%, 80%);
+				--gradient-end: hsl(265, 58%, 50%);;
+				box-shadow: var(--box-shadow);
+				border: 4px solid var(--dark-blue);
+				border-radius: 10px;
+				color: white;
+				margin-right: 1px;
+				text-shadow: 1px 1px var(--dark-blue);
+				background: linear-gradient(145deg, var(--gradient-start) -90%, var(--gradient-end));
+				box-shadow: inset 2px 2px 2px hsla(0, 100%, 100%, .4), inset -2px -2px 2px var(--shadow), 1px 1px 2px var(--shadow);
+        padding: .5em;
+			}
+
+      .element {
+        display: block;
+      }
+
+      button {
+        border: 4px solid currentColor;
+        background: none;
+        width: 100px;
+        height: 50px;
+        border-radius: 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      button:hover {
+        background: var(--shadow);
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 15vh;
+        gap: 1em;
+      }
+  </style>
+</head>
+<body>
+  <section id="container">
+  </section>
+  <div class="buttons">
+    <button id="add-element">
+      <svg viewBox="0 0 100 100" stroke="currentColor" stroke-width="8" height="80%">
+        <path d="M50,0 l0,100" />
+        <path d="M0,50 l100,0" />
+      </svg>
+    </button>
+    <button id="clear-all">
+      <svg viewBox="0 0 100 100" stroke="currentColor" stroke-width="9" height="70%">
+        <path d="M0,0 l100,100" />
+        <path d="M100,0 l-100,100" />
+      </svg>
+    </button>  
+  </div>
+
+  <script>
+    const container = document.getElementById('container')
+    const addButton = document.getElementById('add-element')
+    const clearButton = document.getElementById('clear-all')
+
+    addButton.addEventListener('click', () => {
+      const div = document.createElement('div')
+      div.classList.add('element')
+      div.contentEditable = true
+
+      container.append(div)
+    })
+
+    clearButton.addEventListener('click', () => {
+      container.innerHTML = ''
+    })
+  </script>
+</body>
+</html>
